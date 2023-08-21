@@ -1,0 +1,23 @@
+### 
+
+
+GET http://localhost:5000/carride/list
+
+
+
+
+###
+POST http://localhost:5000/carRide/create
+Content-Type: application/json
+
+{
+    "driver": "cmanzano",
+    "passenger":"cmanzano",
+    "coordinates": {"longitude":202193, "latitude": 212034},
+    "availabilityDate":"2020-01-01",
+    "requestDate":"2020-01-02",
+    "status":"1",
+    "observations": {}
+}
+
+###

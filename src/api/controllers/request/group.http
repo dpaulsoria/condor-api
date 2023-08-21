@@ -1,0 +1,28 @@
+### 
+
+GET http://localhost:5000/group/list
+
+
+###
+POST http://localhost:5000/group/create
+Content-Type: application/json
+
+{
+    "code":"0001",
+    "name":"Manzano",
+    "phones":[],
+    "address":"avenida xyz, casa 14",
+    "details":{}
+}
+
+###
+
+POST http://localhost:5000/group/assign
+Content-Type: application/json
+
+{
+    "username":"cmanzano",
+    "codeGroup":"0001"
+}
+
+###

@@ -1,0 +1,25 @@
+### 
+GET http://localhost:5000/role/list
+
+
+###
+
+POST http://localhost:5000/role/create
+Content-Type: application/json
+
+{
+    "code":"0002",
+    "name":"Administrador"
+}
+
+###
+
+POST http://localhost:5000/group/assign
+Content-Type: application/json
+
+{
+    "username":"cmanzano",
+    "codeGroup":"0002"
+}
+
+###

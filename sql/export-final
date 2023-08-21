@@ -1,0 +1,733 @@
+--
+-- Name: CarRides; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."CarRides" (
+  id bigint NOT NULL,
+  coordinates jsonb,
+  "availabilityDate" timestamp with time zone,
+  "requestDate" timestamp with time zone,
+  status character varying(25),
+  observations jsonb,
+  driver character varying(50),
+  passenger character varying(50),
+  pay numeric DEFAULT 0,
+  "observationsDriver" jsonb,
+  "finalComments" jsonb,
+  urbanization character varying(25)
+);
+
+ALTER TABLE public."CarRides" OWNER TO postgres;
+
+--
+-- Name: CarRides_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."CarRides_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER TABLE public."CarRides_id_seq" OWNER TO postgres;
+
+--
+-- Name: CarRides_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."CarRides_id_seq" OWNED BY public."CarRides".id;
+
+--
+-- Name: Families; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Families" ( -- change for Group
+  id bigint NOT NULL, 
+  code character varying(50) NOT NULL,
+  name character varying(100) NOT NULL,
+  address character varying(100) NOT NULL,
+  phones character varying(25)[] DEFAULT ARRAY[]::character varying[],
+  details jsonb DEFAULT '{}'::jsonb,
+  "codeUrbanization" character varying(25),  -- change for organization
+  aliquot numeric NOT NULL -- change for alicuota
+);
+
+ALTER TABLE public."Families" OWNER TO postgres;  -- change for Group
+
+--
+-- Name: Families_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Families_id_seq" -- change for Group
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Families_id_seq" OWNER TO postgres; -- change for Group
+
+--
+-- Name: Families_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Families_id_seq" OWNED BY public."Families".id;  -- change for Group
+
+--
+-- Name: ImageUsers; Type: TABLE; Schema: public; Owner: postgres
+--
+
+
+CREATE TABLE public."ImageUsers" (
+  id integer NOT NULL,
+  url text NOT NULL,
+  type character varying(25) NOT NULL,
+  reference character varying(100) NOT NULL,
+  username character varying(50),
+  "createdAt" timestamp with time zone NOT NULL,
+  "updatedAt" timestamp with time zone NOT NULL
+);
+
+ALTER TABLE public."ImageUsers" OWNER TO postgres;
+
+--
+-- Name: ImageUsers_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."ImageUsers_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."ImageUsers_id_seq" OWNER TO postgres;
+
+--
+-- Name: ImageUsers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."ImageUsers_id_seq" OWNED BY public."ImageUsers".id;
+
+
+--
+-- Name: Urbanization; Type: TABLE; Schema: public; Owner: postgres
+--
+
+
+CREATE TABLE public."Urbanizations" ( -- change for Organizations
+  id bigint NOT NULL,
+  code character varying(25) NOT NULL,
+  address character varying(100) NOT NULL, 
+  name character varying(50) NOT NULL
+);
+
+ALTER TABLE public."Urbanizations" OWNER TO postgres; -- change for Organizations
+
+--
+-- Name: Urbanizations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Urbanizations_id_seq" -- change for Organizations
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Urbanizations_id_seq" OWNER TO postgres; -- change for Organizations
+
+--
+-- Name: Urbanizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Urbanizations_id_seq" OWNED BY public."Urbanizations".id; -- change for Organizations
+
+
+--
+-- Name: Roles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Roles" (
+  id bigint NOT NULL,
+  code character varying(50) NOT NULL,
+  name character varying(50) NOT NULL,
+  permissions character varying(75)[]
+);
+
+ALTER TABLE public."Roles" OWNER TO postgres;
+
+--
+-- Name: Roles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Roles_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Roles_id_seq" OWNER TO postgres;
+
+--
+-- Name: Roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Roles_id_seq" OWNED BY public."Roles".id;
+
+--
+-- Name: SequelizeMeta; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."SequelizeMeta" (
+    name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public."SequelizeMeta" OWNER TO postgres;
+
+--
+-- Name: UserFamilies; Type: TABLE; Schema: public; Owner: postgres
+--
+
+
+CREATE TABLE public."UserFamilies" ( -- change for GroupFamilies
+  id bigint NOT NULL,
+  username character varying(50),
+  "codeFamily" character varying(50) -- change for codeFamilies
+);
+
+ALTER TABLE public."UserFamilies" OWNER TO postgres;  -- change for Group
+
+--
+-- Name: UserFamilies_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."UserFamilies_id_seq" -- change for Group
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."UserFamilies_id_seq" OWNER TO postgres; -- change for Group
+
+--
+-- Name: UserFamilies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."UserFamilies_id_seq" OWNED BY public."UserFamilies".id; -- change for Group
+
+--
+-- Name: UserRoles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."UserRoles" (
+  id bigint NOT NULL,
+  username character varying(50),
+  "codeRole" character varying(50)
+);  
+
+ALTER TABLE public."UserRoles" OWNER TO postgres;
+
+--
+-- Name: UserRoles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."UserRoles_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."UserRoles_id_seq" OWNER TO postgres;
+
+--
+-- Name: UserRoles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."UserRoles_id_seq" OWNED BY public."UserRoles".id;
+
+--
+-- Name: ValuesPerMonths; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."ValuesPerMonths" (
+  "id" SERIAL PRIMARY KEY,
+  "familyCode" VARCHAR NOT NULL,
+  "payvalue" NUMERIC(10, 2) NOT NULL,
+  "payDriver" NUMERIC(10, 2) NOT NULL,
+  "payPassenger" NUMERIC(10, 2) NOT NULL,
+  "issueDate" TIMESTAMP NOT NULL
+);
+
+ALTER TABLE public."ValuesPerMonths" OWNER TO postgres;
+
+
+--
+-- Name: Users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Users" (
+  id bigint NOT NULL,
+  username character varying(50) NOT NULL,
+  password character varying(255) NOT NULL,
+  "idCard" character varying(50) NOT NULL,
+  "fullName" character varying(150) NOT NULL,
+  email character varying(100) NOT NULL,
+  details jsonb DEFAULT '{}'::jsonb,
+  session jsonb DEFAULT '{}'::jsonb,
+  "codeUrbanization" character varying(25),
+  "createdAt" timestamp with time zone NOT NULL,
+  "updatedAt" timestamp with time zone NOT NULL,
+  "pointsPassenger" numeric DEFAULT 0,
+  "pointsDriver" numeric DEFAULT 0,
+   careers numeric DEFAULT 0
+);
+
+ALTER TABLE public."Users" OWNER TO postgres;
+
+--
+-- Name: Users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Users_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Users_id_seq" OWNER TO postgres;
+
+--
+-- Name: Users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Users_id_seq" OWNED BY public."Users".id;
+
+--
+-- Name: Payments; Type: TABLE; Schema: public; Owner: postgres
+--
+CREATE TABLE public."Payments" ( -- change for Pagos
+  id bigint NOT NULL,
+  payvalue numeric NOT NULL,
+  "familyCode" character varying(25), -- change for groupCode
+  "issueDate" timestamp with time zone NOT NULL, -- change for fechaEmision
+  stateuser character varying(10) NOT NULL -- change for estado
+);
+
+ALTER TABLE public."Payments" OWNER TO postgres; -- change for Pagos
+
+--
+-- Name: Payments_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Payments_id_seq" -- change for Pagos
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER TABLE public."Payments_id_seq" OWNER TO postgres; -- change for Pagos
+
+--
+-- Name: Payments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Payments_id_seq" OWNED BY public."Payments".id; -- change for Pagos
+
+
+
+-- Defaults
+
+--
+-- Name: CarRides id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."CarRides" ALTER COLUMN id SET DEFAULT nextval('public."CarRides_id_seq"'::regclass);
+
+--
+-- Name: Families id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Families" ALTER COLUMN id SET DEFAULT nextval('public."Families_id_seq"'::regclass);
+
+--
+-- Name: ImageUsers id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."ImageUsers" ALTER COLUMN id SET DEFAULT nextval('public."ImageUsers_id_seq"'::regclass);
+
+--
+-- Name: Urbanizations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Urbanizations" ALTER COLUMN id SET DEFAULT nextval('public."Urbanizations_id_seq"'::regclass); 
+
+--
+-- Name: Roles id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Roles" ALTER COLUMN id SET DEFAULT nextval('public."Roles_id_seq"'::regclass);
+
+--
+-- Name: UserFamilies id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserFamilies" ALTER COLUMN id SET DEFAULT nextval('public."UserFamilies_id_seq"'::regclass);
+
+--
+-- Name: UserRoles id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserRoles" ALTER COLUMN id SET DEFAULT nextval('public."UserRoles_id_seq"'::regclass);
+
+--
+-- Name: Users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Users" ALTER COLUMN id SET DEFAULT nextval('public."Users_id_seq"'::regclass);
+
+--
+-- Name: Payments id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Payments" ALTER COLUMN id SET DEFAULT nextval('public."Payments_id_seq"'::regclass);
+
+-- Primaries keys
+
+--
+-- Name: Families Families_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Families"
+    ADD CONSTRAINT "Families_pkey" PRIMARY KEY (code);
+
+--
+-- Name: ImageUsers ImageUsers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."ImageUsers"
+    ADD CONSTRAINT "ImageUsers_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Urbanizations  Urbanizations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Urbanizations" 
+    ADD CONSTRAINT "Urbanizations_pkey" PRIMARY KEY (code);
+
+--
+-- Name: Roles Roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Roles"
+    ADD CONSTRAINT "Roles_pkey" PRIMARY KEY (code);  
+
+--
+-- Name: SequelizeMeta SequelizeMeta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."SequelizeMeta"
+    ADD CONSTRAINT "SequelizeMeta_pkey" PRIMARY KEY (name);
+--
+-- Name: UserGroups UserFamilies_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserFamilies" -- change for UserGroups
+    ADD CONSTRAINT "UserFamilies_pkey" PRIMARY KEY (id);
+
+--
+-- Name: UserRoles UserRoles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserRoles"
+    ADD CONSTRAINT "UserRoles_pkey" PRIMARY KEY (id);
+
+--
+-- Name: Users Users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Users"
+    ADD CONSTRAINT "Users_pkey" PRIMARY KEY (username);
+
+--
+-- Name: Users Payments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Payments" 
+    ADD CONSTRAINT "Payments_pkey" PRIMARY KEY (id);
+
+-- Uniques
+
+--
+-- Name: Roles Roles_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Roles"
+    ADD CONSTRAINT "Roles_name_key" UNIQUE (name);
+
+--
+-- Name: Families Families_code_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+    
+ALTER TABLE public."Families"
+    ADD CONSTRAINT "Families_code_unique" UNIQUE (code);
+
+-- Foreign keys
+
+--
+-- Name: CarRides CarRides_passenger_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."CarRides"
+    ADD CONSTRAINT "CarRides_urbanization_fkey" FOREIGN KEY (urbanization) REFERENCES public."Urbanizations"(code) ON UPDATE CASCADE ON DELETE CASCADE;
+
+--
+-- Name: CarRides CarRides_passenger_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."CarRides"
+    ADD CONSTRAINT "CarRides_passenger_fkey" FOREIGN KEY (passenger) REFERENCES public."Users"(username) ON UPDATE CASCADE ON DELETE CASCADE;
+
+--
+-- Name: Families Families_codeUrbanization_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Families"
+    ADD CONSTRAINT "Families_codeUrbanization_fkey" FOREIGN KEY ("codeUrbanization") REFERENCES public."Urbanizations"(code) ON UPDATE CASCADE ON DELETE CASCADE;
+
+--
+-- Name: ImageUsers ImageUsers_username_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."ImageUsers"
+    ADD CONSTRAINT "ImageUsers_username_fkey" FOREIGN KEY (username) REFERENCES public."Users"(username) ON UPDATE CASCADE ON DELETE CASCADE;
+
+--
+-- Name: UserFamilies UserFamilies_codeFamily_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserFamilies"
+    ADD CONSTRAINT "UserFamilies_codeFamily_fkey" FOREIGN KEY ("codeFamily") REFERENCES public."Families"(code) ON UPDATE CASCADE ON DELETE CASCADE; 
+
+--
+-- Name: UserGroups UserFamilies_username_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserFamilies"
+    ADD CONSTRAINT "UserFamilies_username_fkey" FOREIGN KEY (username) REFERENCES public."Users"(username) ON UPDATE CASCADE ON DELETE CASCADE;
+
+--
+-- Name: UserRoles UserRoles_codeRole_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserRoles"
+    ADD CONSTRAINT "UserRoles_codeRole_fkey" FOREIGN KEY ("codeRole") REFERENCES public."Roles"(code) ON UPDATE CASCADE ON DELETE CASCADE;
+
+--
+-- Name: UserRoles UserRoles_username_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserRoles"
+    ADD CONSTRAINT "UserRoles_username_fkey" FOREIGN KEY (username) REFERENCES public."Users"(username) ON UPDATE CASCADE ON DELETE CASCADE;
+
+--
+-- Name: Users Users_codeUrbanization_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Users"
+    ADD CONSTRAINT "Users_codeUrbanization_fkey" FOREIGN KEY ("codeUrbanization") REFERENCES public."Urbanizations"(code) ON UPDATE CASCADE ON DELETE CASCADE;
+
+--
+-- Name: Payments Payments_familyCode_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Payments"
+    ADD CONSTRAINT "Payments_familyCode_fkey" FOREIGN KEY ("familyCode") REFERENCES public."Families"(code) ON UPDATE CASCADE ON DELETE CASCADE;
+
+-- Triggers
+
+-- CREATE FUNCTION add_payment() RETURNS trigger AS $$
+-- BEGIN
+--   INSERT INTO "Payments" ("payvalue") VALUES (NEW.pay);
+--   RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+-- CREATE TRIGGER add_payment
+-- AFTER INSERT ON "CarRides"
+-- FOR EACH ROW EXECUTE PROCEDURE add_payment();
+
+-- CREATE FUNCTION get_family_code(user_name VARCHAR) 
+-- RETURNS VARCHAR AS $$
+-- DECLARE
+--   family_code VARCHAR;  
+-- BEGIN
+--   SELECT uf."codeFamily"
+--   INTO family_code
+--   FROM "UserFamilies" uf
+--   WHERE uf.username = user_name;
+
+--   RETURN family_code;  
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+
+-- CREATE FUNCTION insert_payments() RETURNS trigger AS $$
+-- BEGIN
+--   INSERT INTO "Payments" ("payvalue", "issueDate", "familyCode", "stateuser")
+--     VALUES (NEW."pay", CURRENT_TIMESTAMP, get_family_code(NEW.passenger), 'pasajero');
+  
+--   INSERT INTO "Payments" ("payvalue", "issueDate","familyCode", "stateuser")
+--     VALUES (NEW."pay", CURRENT_TIMESTAMP, get_family_code(NEW.driver), 'conductor');
+
+--   RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+-- CREATE TRIGGER insert_payments
+-- AFTER INSERT ON "CarRides"
+-- FOR EACH ROW EXECUTE PROCEDURE insert_payments();
+
+-- CREATE OR REPLACE FUNCTION add_payment() RETURNS trigger AS $$
+-- BEGIN
+--   INSERT INTO "Payments" ("payvalue", "issueDate") 
+--     VALUES (NEW.pay, CURRENT_TIMESTAMP);
+
+--   RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+-- CREATE OR REPLACE FUNCTION add_payment() RETURNS trigger AS $$
+-- BEGIN
+--   INSERT INTO "Payments" ("payvalue", "issueDate", "familyCode") 
+--     VALUES (NEW.pay, CURRENT_TIMESTAMP, get_family_code(NEW.passenger));
+  
+--   RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+-- CREATE OR REPLACE FUNCTION add_payment() RETURNS trigger AS $$
+-- BEGIN
+--   INSERT INTO "Payments" ("payvalue", "issueDate", "stateuser") 
+--     VALUES (NEW.pay, CURRENT_TIMESTAMP, 'pasajero');
+
+--   RETURN NEW;  
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+-- Función para obtener el código de la familia
+CREATE FUNCTION get_family_code(user_name VARCHAR) 
+RETURNS VARCHAR AS $$
+DECLARE
+  family_code VARCHAR;  
+BEGIN
+  SELECT uf."codeFamily"
+  INTO family_code
+  FROM "UserFamilies" uf
+  WHERE uf.username = user_name;
+
+  RETURN family_code;  
+END;
+$$ LANGUAGE plpgsql;
+
+-- Función para insertar pagos
+CREATE FUNCTION insert_payments() RETURNS trigger AS $$
+BEGIN
+  -- Insertar el pago para el pasajero
+  INSERT INTO "Payments" ("payvalue", "issueDate", "familyCode", "stateuser")
+    VALUES (NEW."pay", CURRENT_TIMESTAMP, get_family_code(NEW.passenger), 'pasajero');
+  
+  -- Insertar el pago para el conductor
+  INSERT INTO "Payments" ("payvalue", "issueDate","familyCode", "stateuser")
+    VALUES (NEW."pay", CURRENT_TIMESTAMP, get_family_code(NEW.driver), 'conductor');
+
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger para ejecutar la función insert_payments
+CREATE TRIGGER insert_payments
+AFTER INSERT ON "CarRides"
+FOR EACH ROW EXECUTE PROCEDURE insert_payments();
+
+
+
+-- for a updateValuesPerMoth
+CREATE OR REPLACE FUNCTION update_values_per_month() RETURNS TRIGGER AS $$
+DECLARE
+  existing_record RECORD;
+  previous_month_negative_payvalue NUMERIC;
+  test_timestamp TIMESTAMP;
+  aliquot_value NUMERIC;
+BEGIN
+  -- Leer la fecha de prueba de la tabla "Configurations"
+  SELECT "testTimestamp" INTO test_timestamp
+  FROM public."Configurations"
+  LIMIT 1;
+
+  -- Obtener el valor de la alícuota para el código de familia
+  SELECT aliquot INTO aliquot_value
+  FROM "Families"
+  WHERE code = NEW."familyCode";
+
+  -- Buscar si hay un registro en el mes anterior con valores negativos
+  SELECT SUM("payvalue") INTO previous_month_negative_payvalue
+  FROM "ValuesPerMonths"
+  WHERE "familyCode" = NEW."familyCode"
+    AND "payvalue" < 0
+    AND EXTRACT(MONTH FROM "issueDate") = EXTRACT(MONTH FROM test_timestamp) - 1
+    AND EXTRACT(YEAR FROM "issueDate") = EXTRACT(YEAR FROM test_timestamp);
+
+  SELECT INTO existing_record
+    *
+  FROM "ValuesPerMonths"
+  WHERE "familyCode" = NEW."familyCode"
+    AND EXTRACT(MONTH FROM "issueDate") = EXTRACT(MONTH FROM test_timestamp)
+    AND EXTRACT(YEAR FROM "issueDate") = EXTRACT(YEAR FROM test_timestamp);
+
+  IF existing_record IS NULL THEN
+    -- Inicializar con el valor de la alícuota y sumar el valor negativo del mes anterior si existe
+    INSERT INTO "ValuesPerMonths" ("familyCode", "payvalue", "payDriver", "payPassenger", "issueDate")
+      VALUES (NEW."familyCode", aliquot_value + COALESCE(previous_month_negative_payvalue, 0), 0, 0, test_timestamp);
+  END IF;
+
+  -- Actualizar el valor basado en si es conductor o pasajero
+  IF NEW.stateuser = 'conductor' THEN
+    UPDATE "ValuesPerMonths"
+      SET "payvalue" = "payvalue" - NEW.payvalue,
+          "payDriver" = "payDriver" + NEW.payvalue
+      WHERE "familyCode" = NEW."familyCode"
+        AND EXTRACT(MONTH FROM "issueDate") = EXTRACT(MONTH FROM test_timestamp)
+        AND EXTRACT(YEAR FROM "issueDate") = EXTRACT(YEAR FROM test_timestamp);
+  ELSE
+    UPDATE "ValuesPerMonths"
+      SET "payvalue" = "payvalue" + NEW.payvalue,
+          "payPassenger" = "payPassenger" + NEW.payvalue
+      WHERE "familyCode" = NEW."familyCode"
+        AND EXTRACT(MONTH FROM "issueDate") = EXTRACT(MONTH FROM test_timestamp)
+        AND EXTRACT(YEAR FROM "issueDate") = EXTRACT(YEAR FROM test_timestamp);
+  END IF;
+
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_values_per_month
+AFTER INSERT ON "Payments"
+FOR EACH ROW EXECUTE PROCEDURE update_values_per_month();

@@ -1,0 +1,26 @@
+### 
+
+POST http://localhost:5000/auth/signup
+Content-Type: application/json
+
+{
+    "username":"cmanzano",
+    "password":"12345",
+    "idCard":"1234567891",
+    "fullName":"Cristhian Manzano",
+    "email":"cmanzano@gmail.com",
+    "details":{},
+    "session":{}
+}
+
+###
+
+POST http://localhost:5000/auth/signin
+Content-Type: application/json
+
+{
+    "email":"cmanzano@gmail.com",
+    "password":"12345"
+}
+
+###
